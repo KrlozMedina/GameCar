@@ -10,10 +10,10 @@ public class Player {
     private int points;
 
 //    Constructor
-    Player(String name) {
+    Player() {
         id++;
         Driver driver = new Driver();
-        driver.setName(name);
+//        driver.setName(name);
         Car car = new Car(driver);
     }
 

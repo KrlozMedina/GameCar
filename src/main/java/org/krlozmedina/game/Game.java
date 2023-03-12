@@ -63,8 +63,9 @@ public class Game {
     }
 
     private void createPlayer(int i){
+        Player player = new Player();
         System.out.println("What is your nickname player " + (i + 1));
-        Player player = new Player(scanner.nextLine());
+        player.setName(scanner.nextLine());
         System.out.println("Select a color");
         player.setColor(scanner.nextLine());
 
