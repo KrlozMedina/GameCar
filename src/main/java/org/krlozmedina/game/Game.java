@@ -43,8 +43,17 @@ public class Game {
         }
     }
 
+//    30m Black
+//    31m Red
+//    32m Green
+//    33m Yellow
+//    34m Blue
+//    35m Purple
+//    36 Cyan
+//    37 Gray
+
     private void createPlayers(int i) {
-        System.out.println("\u001B[43m" + "What is your nickname player " + (i + 1));
+        System.out.println("\u001B[40m" + "What is your nickname player " + (i + 1));
         String playerName = scanner.nextLine();
         System.out.println("Select a color");
         String carColor = scanner.nextLine();

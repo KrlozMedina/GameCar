@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae22380a-de0b-4ddf-886f-d5154b5e879e" name="Changes" comment="[MENU] Implementado el menu de inicio del juego.">
+    <list default="true" id="ae22380a-de0b-4ddf-886f-d5154b5e879e" name="Changes" comment="[PRUEBA] Probando colores de la consola.">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/Game.java" afterDir="false" />
     </list>
@@ -79,7 +81,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678630052604</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[PRUEBA] Probando colores de la consola.">
+      <created>1678884503879</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1678884503879</updated>
+    </task>
+    <task id="LOCAL-00005" summary="[PRUEBA] Probando colores de la consola.">
+      <created>1678884554967</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1678884554967</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -96,6 +112,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="&quot;[INIT] Iniciando el proyecto&quot;" />
     <MESSAGE value="[MENU] Implementado el menu de inicio del juego." />
-    <option name="LAST_COMMIT_MESSAGE" value="[MENU] Implementado el menu de inicio del juego." />
+    <MESSAGE value="[PRUEBA] Probando colores de la consola." />
+    <option name="LAST_COMMIT_MESSAGE" value="[PRUEBA] Probando colores de la consola." />
   </component>
 </project>
