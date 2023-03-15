@@ -44,7 +44,7 @@ public class Game {
     }
 
     private void createPlayers(int i) {
-        System.out.println("What is your nickname player " + (i + 1));
+        System.out.println("\u001B[43m" + "What is your nickname player " + (i + 1));
         String playerName = scanner.nextLine();
         System.out.println("Select a color");
         String carColor = scanner.nextLine();
