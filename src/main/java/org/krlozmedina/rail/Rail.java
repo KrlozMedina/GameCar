@@ -1,11 +1,21 @@
 package org.krlozmedina.rail;
 
-import org.krlozmedina.car.Car;
 
 public class Rail {
-    private int carId;
+    private int meters;
+    private int position;
 
-    public Rail(int id) {
-        this.carId = id;
+    public Rail(int kilometers) {
+        this.meters = kilometers * 1000;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public int moveCar(int howMany) {
+        this.position += howMany * 100;
+        System.out.println("The car move " + howMany * 100 + "m");
+        return getPosition();
     }
 }

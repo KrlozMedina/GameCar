@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="ae22380a-de0b-4ddf-886f-d5154b5e879e" name="Changes" comment="[MENU] Implementado el menu de inicio del juego.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/krlozmedina/car/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/krlozmedina/car/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/krlozmedina/car/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/krlozmedina/car/Driver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/values/Track.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/krlozmedina/game/values/Track.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/krlozmedina/rail/Rail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/krlozmedina/rail/Rail.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +84,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678630052604</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="[MENU] Implementado el menu de inicio del juego.">
+      <created>1678630560166</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1678630560166</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

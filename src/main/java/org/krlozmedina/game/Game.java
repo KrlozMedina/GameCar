@@ -1,16 +1,13 @@
 package org.krlozmedina.game;
 
+import org.krlozmedina.car.Driver;
 import org.krlozmedina.game.values.Track;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
     private int numberPlayers = 0;
-    private boolean isReady = false;
+    private boolean playing = false;
     private final Scanner scanner = new Scanner(System.in);
-    private final Track track = new Track();
-    private final ArrayList<Player> players = new ArrayList<>();
 
 //    Getters
     public int getNumberPlayers() {
@@ -18,108 +15,154 @@ public class Game {
     }
 
     public int getDistanceInKm() {
-        return track.getKilometers();
+        return Track.getKilometers();
     }
 
-//    Setters
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    //    Setters
     public void setNumberPlayers(int numberPlayers) {
         this.numberPlayers = numberPlayers;
     }
 
-//    Private methods
-    private void bucleForPlayers() {
-        do {
-            System.out.println("How many players?");
-            selectPlayers();
-        } while (getNumberPlayers() == 0);
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 
-    private void bucleForDistance() {
-        do {
-            System.out.println("Maximum track distance in Km?");
-            selectDistance();
-        } while (getDistanceInKm() == 0);
-    }
-
-    private void bucleForStartGame() {
-        int intIsReady;
-        do {
-            System.out.println("You want to change the parameters of the game?");
-            System.out.println("   1. Si.");
-            System.out.println("   2. No.");
-            intIsReady = validateNumberInt(scanner.nextLine());
-            isReady = intIsReady == 2;
-        } while (intIsReady == 0);
-    }
-
-    public void showPlayers() {
-        int count = 0;
-        for (Player p: players
-        ) {
-            count++;
-            System.out.println("   " + count + ". " + "Name: " + p.getName());
-            System.out.println("      " + "Car color: " + p.getColor());
-        }
-    }
-
-    private void createPlayer(int i){
-        Player player = new Player();
-        System.out.println("What is your nickname player " + (i + 1));
-        player.setName(scanner.nextLine());
-        System.out.println("Select a color");
-        player.setColor(scanner.nextLine());
-
-        players.add(player);
-    }
-
-//    Public methods
-    public void startGame() {
-        do {
-            players.clear();
-
-            bucleForPlayers();
-            bucleForDistance();
-
-            System.out.println("-----------------------------------------------------------------");
-            System.out.println("The following players have been created");
-            showPlayers();
-            System.out.println();
-            System.out.println("The track has " + getDistanceInKm() + "Km");
-            System.out.println("-----------------------------------------------------------------");
-
-            bucleForStartGame();
-        } while (!isReady);
-
-        System.out.println("Begin...");
-    }
-
-    public int validateNumberInt(String value) {
+    //    Private methods
+    private int validateNumber(String value) {
+        int valueInt;
         try {
-            return Integer.parseInt(value);
+            valueInt = Integer.parseInt(value);
+            return Math.max(valueInt, 0);
         } catch (Exception e) {
             System.out.print("Please get into a number. ");
             return 0;
         }
     }
 
-    public void selectPlayers() {
+    private void createPlayers(int i) {
+        System.out.println("What is your nickname player " + (i + 1));
+        String playerName = scanner.nextLine();
+        System.out.println("Select a color");
+        String carColor = scanner.nextLine();
+
+        Player player = new Player(playerName, carColor);
+    }
+
+    private void selectPlayers() {
         String value = scanner.nextLine();
-        setNumberPlayers(validateNumberInt(value));
-        track.setNumberOfRails(getNumberPlayers());
+        setNumberPlayers(validateNumber(value));
+        Track.setNumberOfRails(getNumberPlayers());
 
         for (int i = 0; i < getNumberPlayers(); i++) {
-            createPlayer(i);
+            createPlayers(i);
         }
     }
 
-    public void selectDistance() {
-        String value = scanner.nextLine();
-        track.setKilometers(validateNumberInt(value));
+    private void waitForSelectPlayers() {
+        do {
+            System.out.println("How many players?");
+            selectPlayers();
+        } while (getNumberPlayers() == 0);
+    }
+
+    private void waitForSelectDistance() {
+        do {
+            System.out.println("Maximum track distance in Km?");
+            String value = scanner.nextLine();
+            Track.setKilometers(validateNumber(value));
+        } while (getDistanceInKm() == 0);
+    }
+
+    private void waitForIsReady() {
+        int flagPlaying;
+        do {
+            System.out.println("You want to change the parameters of the game?");
+            System.out.println("   1. Si.");
+            System.out.println("   2. No.");
+            flagPlaying = validateNumber(scanner.nextLine());
+            setPlaying(flagPlaying == 2);
+        } while (flagPlaying == 0);
+    }
+
+    private void setParamForGame() {
+        do {
+            Player.players.clear();
+
+            waitForSelectPlayers();
+            waitForSelectDistance();
+
+            System.out.println("-----------------------------------------------------------------");
+            System.out.println("The following players have been created");
+
+            int count = 0;
+            for (Player p: Player.players
+            ) {
+                count++;
+                System.out.println("   " + count + ". " + "Name: " + p.getName());
+                System.out.println("      " + "Car color: " + p.getColor());
+            }
+
+            System.out.println();
+            System.out.println("The track has " + getDistanceInKm() + "Km");
+            System.out.println("-----------------------------------------------------------------");
+
+            waitForIsReady();
+        } while (!isPlaying());
+    }
+
+    private void showGameInConsole() {
+        for (Player p: Player.players) {
+            System.out.print(p.rail.getPosition() + "/" + Track.getKilometers() * 1000 + "m");
+            System.out.println("------------------------------------------------------------------------------------------");
+
+            int position = (p.rail.getPosition() * 100) / (Track.getKilometers() * 1000);
+            for (int i = 0; i < position; i++) {
+                System.out.print(" ");
+            }
+
+            if (p.getName().length() >= 4) {
+                System.out.println(p.getName().substring(0, 4));
+            } else {
+                System.out.println(p.getName().substring(0, p.getName().length()));
+            }
+        }
+        System.out.println("----------------------------------------------------------------------------------------------------");
+
+    }
+
+    private void lestGoToPlay() {
+        do {
+            for (Player p: Player.players) {
+                showGameInConsole();
+                System.out.print("Throw dice " + p.getName());
+                scanner.nextLine();
+                p.rail.moveCar(Driver.throwDice());
+            }
+        } while (isPlaying());
+    }
+
+//    Public methods
+    public void startGame() {
+        setParamForGame();
+
+        System.out.println("Begin...");
+
+        lestGoToPlay();
     }
 }
 
 /*
- * Crear juego con jugadores, el juego debe tener los limites de kilómetros por cada pista
- * (un jugador puede ser un conductor y un conductor debe tener un carro asociado y un carro
- * debe estar asociado a un pista)
+    1. Crear juego con jugadores, el juego debe tener los limites de kilómetros por cada pista
+    (un jugador puede ser un conductor y un conductor debe tener un carro asociado y un carro
+    debe estar asociado a un pista)
+*/
+
+/*
+    2. Iniciar el juego, con un identificado se debe iniciar el juego, se debe tener la lista
+    de carros en donde se pueda iterar y avanzar según la posición de la pista, esto debe ser
+    de forma aleatoria.
 */

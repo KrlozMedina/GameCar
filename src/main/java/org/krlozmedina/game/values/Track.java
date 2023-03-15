@@ -1,24 +1,24 @@
 package org.krlozmedina.game.values;
 
 public class Track {
-    private int kilometers;
-    private int numberOfRails;
+    private static int kilometers;
+    private static int numberOfRails;
 
 //  Getters
-    public int getKilometers() {
+    public static int getKilometers() {
         return kilometers;
     }
 
-    public int getNumberOfRails() {
+    public static int getNumberOfRails() {
         return numberOfRails;
     }
 
 //    Setters
-    public void setKilometers(int kilometers) {
-        this.kilometers = kilometers;
+    public static void setKilometers(int km) {
+        kilometers = km;
     }
 
-    public void setNumberOfRails(int numberOfRails) {
-        this.numberOfRails = numberOfRails;
+    public static void setNumberOfRails(int nRails) {
+        numberOfRails = nRails;
     }
 }

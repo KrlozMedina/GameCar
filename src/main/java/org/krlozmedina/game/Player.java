@@ -2,30 +2,36 @@ package org.krlozmedina.game;
 
 import org.krlozmedina.car.Car;
 import org.krlozmedina.car.Driver;
+import org.krlozmedina.game.values.Track;
+import org.krlozmedina.rail.Rail;
+
+import java.util.ArrayList;
 
 public class Player {
-    public static int id;
+    public static final ArrayList<Player> players = new ArrayList<>();
+
     private String name;
     private String color;
     private int points;
 
+    Driver driver;
+    Car car;
+    Rail rail;
+
 //    Constructor
-    Player() {
-        id++;
-        Driver driver = new Driver();
-//        driver.setName(name);
-        Car car = new Car(driver);
+    public Player(String name, String color) {
+        this.driver = new Driver(name);
+        this.name = driver.getName();
+
+        this.car = new Car(this.driver, color);
+        this.color = color;
+
+        this.rail = new Rail(Track.getKilometers());
+
+        players.add(this);
     }
 
 //    Setters
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public void setPoints(int points) {
         this.points = points;
     }
@@ -42,4 +48,7 @@ public class Player {
     public int getPoints() {
         return points;
     }
+
+//  Private methods
+
 }

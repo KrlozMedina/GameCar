@@ -1,14 +1,20 @@
 package org.krlozmedina.car;
 
-import org.krlozmedina.rail.Rail;
-
 public class Car {
-    static int carId;
     private Driver driver;
-    int distance;
+    private int distance;
+    private String color;
 
-    public Car(Driver driver) {
+    public Car(Driver driver, String color) {
         this.driver = driver;
-        Rail rail = new Rail(carId);
+        this.color = color;
+    }
+
+//    public int moveInRail() {
+//
+//    }
+
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }
