@@ -119,8 +119,9 @@ public class Game {
             System.out.print(p.rail.getPosition() + "/" + Track.getKilometers() * 1000 + "m");
             System.out.println("------------------------------------------------------------------------------------------");
 
-            int position = (p.rail.getPosition() * 100) / (Track.getKilometers() * 1000);
-            for (int i = 0; i < position; i++) {
+            p.car.setDistance((p.rail.getPosition() * 100) / (Track.getKilometers() * 1000));
+//            int position = (p.rail.getPosition() * 100) / (Track.getKilometers() * 1000);
+            for (int i = 0; i < p.car.getDistance(); i++) {
                 System.out.print(" ");
             }
 

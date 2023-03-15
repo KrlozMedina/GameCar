@@ -10,11 +10,11 @@ public class Car {
         this.color = color;
     }
 
-//    public int moveInRail() {
-//
-//    }
-
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public int getDistance() {
+        return distance;
     }
 }
