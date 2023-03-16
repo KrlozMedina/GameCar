@@ -17,4 +17,8 @@ public class Car {
     public int getDistance() {
         return distance;
     }
+
+    public String getColor() {
+        return color;
+    }
 }
