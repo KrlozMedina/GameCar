@@ -9,16 +9,14 @@ import java.util.ArrayList;
 
 public class Player {
     public static final ArrayList<Player> players = new ArrayList<>();
-
-    private String name;
-    private String color;
+    private final String name;
+    private final String color;
     private int points;
 
     Driver driver;
     Car car;
     Rail rail;
 
-//    Constructor
     public Player(String name, String color) {
         this.driver = new Driver(name);
         this.name = driver.getName();
@@ -31,22 +29,13 @@ public class Player {
         players.add(this);
     }
 
-//    Setters
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-//    Getters
+//    Getters and Setters
     public String getName() {
         return name;
     }
 
     public String getColor() {
         return color;
-    }
-
-    public int getPoints() {
-        return points;
     }
 
 //  Private methods

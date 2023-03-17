@@ -1,18 +1,21 @@
 package org.krlozmedina.game;
 
 import org.krlozmedina.car.Driver;
+import org.krlozmedina.game.values.Podium;
 import org.krlozmedina.game.values.Track;
 import java.util.Scanner;
 
 public class Game {
+    private static final int LENGTH_LINE = 103;
     private int numberPlayers = 0;
     private boolean playing = false;
     private final Scanner scanner = new Scanner(System.in);
     private final String[] colors = {"white", "red", "green", "yellow", "blue", "purple", "cyan", "gray"};
+    private Podium podium = new Podium();
 
 
 //  Classes
-    private static class TextInConsole {
+    public static class TextInConsole {
         private static String defineColorLetter(String colorLetter) {
             return switch (colorLetter) {
                 case "black" -> "\u001B[30m";
@@ -48,6 +51,25 @@ public class Game {
         public static void messageInOtherLine(String phrase, String colorFont, String colorBackground) {
             System.out.println(defineColorLetter(colorFont) + defineColorBackground(colorBackground) + phrase);
         }
+
+        public static void drawLineOfRail(int length) {
+            for (int i = 0; i < length; i++) {
+                TextInConsole.messageInLine("-", "", "black");
+            }
+            TextInConsole.messageInOtherLine("", "", "black");
+        }
+
+        public static void drawRailInConsole(String name, int position, int meters, String color) {
+            String msg = name + ":" + position + "/" + meters + "m";
+            TextInConsole.messageInLine(msg, color, "black");
+            drawLineOfRail(LENGTH_LINE - msg.length());
+        }
+
+        public static void drawCarInConsole(int distance, String color) {
+            Calculated.spaceBeforeCar(distance);
+            TextInConsole.messageInLine("}<>)", color, "black");
+            TextInConsole.messageInOtherLine("", "", "black");
+        }
     }
 
     private static class ErrorHandling {
@@ -61,32 +83,31 @@ public class Game {
                 return 0;
             }
         }
+
+        public static double validateNumberDouble(String value) {
+            double valueDouble;
+            try {
+                valueDouble = Double.parseDouble(value);
+                return Math.max(valueDouble, 0);
+            } catch (Exception e) {
+                TextInConsole.messageInLine("Please get into a number. ", "red", "black");
+                return 0;
+            }
+        }
     }
 
     private static class Calculated {
-        private static int kilometersToMeters(int km) {
-            return km * 1000;
-        }
-
         private static int positionPercentage(int position) {
             return position * 100;
         }
 
         public static int distanceInConsole(int positionActual, int metaInKm) {
-            return positionPercentage(positionActual) / kilometersToMeters(metaInKm);
+            return positionPercentage(positionActual) / metaInKm;
         }
 
         public static void spaceBeforeCar(int distance) {
             for (int i = 0; i < distance; i++) {
                 TextInConsole.messageInLine(" ", "", "black");
-            }
-        }
-
-        public static void sizeCarWithName(String name, String color) {
-            if (name.length() >= 4) {
-                TextInConsole.messageInOtherLine(name.substring(0, 4), color, "black");
-            } else {
-                TextInConsole.messageInOtherLine(name, color, "black");
             }
         }
     }
@@ -100,7 +121,7 @@ public class Game {
         this.numberPlayers = numberPlayers;
     }
 
-    public int getDistanceInKm() {
+    public double getDistanceInKm() {
         return Track.getKilometers();
     }
 
@@ -157,7 +178,7 @@ public class Game {
         do {
             TextInConsole.messageInOtherLine("Maximum track distance in Km?", "", "");
             String value = scanner.nextLine();
-            Track.setKilometers(ErrorHandling.validateNumber(value));
+            Track.setKilometers(ErrorHandling.validateNumberDouble(value));
         } while (getDistanceInKm() == 0);
     }
 
@@ -176,8 +197,8 @@ public class Game {
         do {
             Player.players.clear();
 
-            waitForSelectPlayers();
             waitForSelectDistance();
+            waitForSelectPlayers();
 
             TextInConsole.messageInOtherLine("-----------------------------------------------------------------", "", "");
             TextInConsole.messageInOtherLine("The following players have been created", "", "");
@@ -200,23 +221,33 @@ public class Game {
 
     private void showGameInConsole() {
         for (Player p: Player.players) {
-            TextInConsole.messageInLine(p.rail.getPosition() + "/" + Track.getKilometers() * 1000 + "m", p.car.getColor(), "black");
-            TextInConsole.messageInOtherLine("------------------------------------------------------------------------------------------", "", "black");
-
-            p.car.setDistance(Calculated.distanceInConsole(p.rail.getPosition(), Track.getKilometers()));
-            Calculated.spaceBeforeCar(p.car.getDistance());
-            Calculated.sizeCarWithName(p.getName(), p.car.getColor());
+            TextInConsole.drawRailInConsole(p.getName(), p.rail.getPosition(), p.rail.getMeters(), p.car.getColor());
+            p.car.setDistance(Calculated.distanceInConsole(p.rail.getPosition(), p.rail.getMeters()));
+            TextInConsole.drawCarInConsole(p.car.getDistance(), p.car.getColor());
         }
-        TextInConsole.messageInOtherLine("----------------------------------------------------------------------------------------------------", "", "black");
+        TextInConsole.drawLineOfRail(LENGTH_LINE);
     }
 
     private void lestGoToPlay() {
+        showGameInConsole();
         do {
             for (Player p: Player.players) {
-                showGameInConsole();
-                TextInConsole.messageInOtherLine("Throw dice " + p.getName(), p.car.getColor(), "");
-                scanner.nextLine();
-                p.rail.moveCar(Driver.throwDice());
+                if (p.rail.getPosition() < p.rail.getMeters()) {
+                    TextInConsole.messageInOtherLine("Throw dice " + p.getName(), p.car.getColor(), "");
+
+                    scanner.nextLine();
+                    p.rail.moveCar(Driver.throwDice());
+                    showGameInConsole();
+
+                    if (p.rail.getPosition() >= p.rail.getMeters()) {
+                        boolean statusPodium;
+                        statusPodium = podium.assignPlace(p);
+                        if (!statusPodium) {
+                            setPlaying(false);
+                            break;
+                        }
+                    }
+                }
             }
         } while (isPlaying());
     }
@@ -225,6 +256,10 @@ public class Game {
         setParamForGame();
         TextInConsole.messageInOtherLine("Begin...", "", "");
         lestGoToPlay();
+        TextInConsole.messageInOtherLine("Finished", "", "");
+        TextInConsole.messageInOtherLine("First place: " + podium.getFirstPlace().getName(), podium.getFirstPlace().car.getColor(), "");
+        TextInConsole.messageInOtherLine("Second place: " + podium.getSecondPlace().getName(), podium.getSecondPlace().car.getColor(), "");
+        TextInConsole.messageInOtherLine("Third place: " + podium.getThirdPlace().getName(), podium.getThirdPlace().car.getColor(), "");
     }
 }
 

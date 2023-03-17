@@ -3,7 +3,7 @@ package org.krlozmedina.car;
 public class Car {
     private Driver driver;
     private int distance;
-    private String color;
+    private final String color;
 
     public Car(Driver driver, String color) {
         this.driver = driver;
