@@ -2,6 +2,7 @@
 
 ## SQL
 
+```html
 CREATE DATABASE GameCar;
 USE GameCar;
 CREATE TABLE Cars(  idCar INTEGER PRIMARY KEY,
