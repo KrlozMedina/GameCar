@@ -48,4 +48,10 @@ public class Podium {
         }
         return true;
     }
+
+    public void clearPlaces() {
+        assignFirstPlace(null);
+        assignSecondPlace(null);
+        assignThirdPlace(null);
+    }
 }
