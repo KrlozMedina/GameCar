@@ -2,7 +2,7 @@
 
 ## SQL
 
-```html
+```SQL
 CREATE DATABASE GameCar;
 USE GameCar;
 CREATE TABLE Cars(  idCar INTEGER PRIMARY KEY,
@@ -22,3 +22,6 @@ INSERT INTO Cars VALUES (5, "PURPLE");
 INSERT INTO Cars VALUES (6, "CYAN");
 INSERT INTO Cars VALUES (7, "GRAY");
 INSERT INTO Cars VALUES (8, "WHITE");
+```
+
+![WhatsApp-Video-2023-03-22-at-12 48 36](https://user-images.githubusercontent.com/78941509/226994345-0ad21ab9-ac8e-4dcd-bc5d-3f81e12428fa.gif)
