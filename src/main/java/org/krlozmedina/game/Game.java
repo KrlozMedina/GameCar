@@ -1,5 +1,6 @@
 package org.krlozmedina.game;
 
+import org.krlozmedina.Colors;
 import org.krlozmedina.car.Driver;
 import org.krlozmedina.game.values.Podium;
 import org.krlozmedina.game.values.Track;
@@ -20,19 +21,8 @@ public class Game {
     static final String PASSWORD_SERVER = "";
     //----------------------------------------
 
-    static final String BLACK = "black";
-    static final String WHITE = "white";
-    static final String RED = "red";
-    static final String GREEN = "green";
-    static final String YELLOW = "yellow";
-    static final String BLUE = "blue";
-    static final String PURPLE = "purple";
-    static final String CYAN = "cyan";
-    static final String GRAY = "gray";
-
     static int id = 0;
     static final int LENGTH_LINE = 103;
-    static final String[] colors = {BLACK, RED, GREEN, YELLOW, BLUE, PURPLE, CYAN, GRAY, WHITE};
 
     private int numberPlayers = 0;
     private boolean playing = false;
@@ -52,7 +42,7 @@ public class Game {
 
         public static void spaceBeforeCar(int distance) {
             for (int i = 0; i < distance; i++) {
-                TextInConsole.messageInLine(" ", "", BLACK);
+                TextInConsole.messageInLine(" ", "", Colors.BLACK.toString());
             }
         }
     }
@@ -62,28 +52,28 @@ public class Game {
 
         private static String defineColorLetter(String colorLetter) {
             return switch (colorLetter) {
-                case BLACK -> "\u001B[30m";
-                case RED -> "\u001B[31m";
-                case GREEN -> "\u001B[32m";
-                case YELLOW -> "\u001B[33m";
-                case BLUE -> "\u001B[34m";
-                case PURPLE -> "\u001B[35m";
-                case CYAN -> "\u001B[36m";
-                case GRAY -> "\u001B[37m";
+                case "BLACK" -> "\u001B[30m";
+                case "RED" -> "\u001B[31m";
+                case "GREEN" -> "\u001B[32m";
+                case "YELLOW" -> "\u001B[33m";
+                case "BLUE" -> "\u001B[34m";
+                case "PURPLE" -> "\u001B[35m";
+                case "CYAN" -> "\u001B[36m";
+                case "GRAY" -> "\u001B[37m";
                 default -> "\u001B[38m";
             };
         }
 
         private static String defineColorBackground(String colorBackground) {
             return switch (colorBackground) {
-                case BLACK -> "\u001B[40m";
-                case RED -> "\u001B[41m";
-                case GREEN -> "\u001B[42m";
-                case YELLOW -> "\u001B[43m";
-                case BLUE -> "\u001B[44m";
-                case PURPLE -> "\u001B[45m";
-                case CYAN -> "\u001B[46m";
-                case GRAY -> "\u001B[47m";
+                case "BLACK" -> "\u001B[40m";
+                case "RED" -> "\u001B[41m";
+                case "GREEN" -> "\u001B[42m";
+                case "YELLOW" -> "\u001B[43m";
+                case "BLUE" -> "\u001B[44m";
+                case "PURPLE" -> "\u001B[45m";
+                case "CYAN" -> "\u001B[46m";
+                case "GRAY" -> "\u001B[47m";
                 default -> "\u001B[48m";
             };
         }
@@ -98,21 +88,21 @@ public class Game {
 
         public static void drawLineOfRail(int length) {
             for (int i = 0; i < length; i++) {
-                messageInLine("-", "", BLACK);
+                messageInLine("-", "", Colors.BLACK.toString());
             }
-            messageInOtherLine("", "", BLACK);
+            messageInOtherLine("", "", Colors.BLACK.toString());
         }
 
         public static void drawRail(String name, int position, int meters, String color) {
             String msg = name + ":" + position + "/" + meters + "m";
-            messageInLine(msg, color, BLACK);
+            messageInLine(msg, color, Colors.BLACK.toString());
             drawLineOfRail(LENGTH_LINE - msg.length());
         }
 
         public static void drawCar(int distance, String color) {
             Calculated.spaceBeforeCar(distance);
-            messageInLine("}<>)", color, BLACK);
-            messageInOtherLine("", "", BLACK);
+            messageInLine("}<>)", color, Colors.BLACK.toString());
+            messageInOtherLine("", "", Colors.BLACK.toString());
         }
     }
 
@@ -130,7 +120,7 @@ public class Game {
                 String password = System.getProperty("database.password");
                 conn = DriverManager.getConnection(URL, username, password);
             } catch (Exception e) {
-                TextInConsole.messageInOtherLine(String.valueOf(e), RED, "");
+                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
             }
 
             return conn;
@@ -152,7 +142,7 @@ public class Game {
 
                 conn.close();
             } catch (Exception e){
-                TextInConsole.messageInOtherLine(String.valueOf(e), RED, "");
+                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
             }
             return id;
         }
@@ -174,12 +164,10 @@ public class Game {
 
                 conn.close();
             } catch (Exception e){
-                TextInConsole.messageInOtherLine(String.valueOf(e), RED, "");
+                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
             }
             return score;
         }
-
-//        static int id = Player.playersInGame.size();
 
         public static void createData(String name, String color) {
             try {
@@ -196,7 +184,7 @@ public class Game {
 
                 conn.close();
             } catch (Exception e) {
-                TextInConsole.messageInOtherLine(String.valueOf(e), RED, "");
+                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
             }
         }
 
@@ -209,7 +197,7 @@ public class Game {
                 ResultSet res = ps.executeQuery();
 
                 if (!res.next()) {
-                    TextInConsole.messageInOtherLine("Database empty", RED, "");
+                    TextInConsole.messageInOtherLine("Database empty", Colors.RED.toString(), "");
                 } else {
                     do {
                         new Player( res.getString("name"),
@@ -220,7 +208,7 @@ public class Game {
 
                 conn.close();
             } catch (Exception e) {
-                TextInConsole.messageInOtherLine(String.valueOf(e), RED, "");
+                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
             }
 
             id = Player.players.size();
@@ -237,7 +225,7 @@ public class Game {
                ps.executeUpdate();
                conn.close();
            } catch (Exception e) {
-               TextInConsole.messageInOtherLine(String.valueOf(e), RED, "");
+               TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
            }
         }
 
@@ -252,7 +240,7 @@ public class Game {
                 ps.executeUpdate();
                 conn.close();
             } catch (Exception e) {
-                TextInConsole.messageInOtherLine(String.valueOf(e), RED, "");
+                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
             }
         }
     }
@@ -264,7 +252,7 @@ public class Game {
                 valueInt = Integer.parseInt(value);
                 return Math.max(valueInt, 0);
             } catch (Exception e) {
-                TextInConsole.messageInLine("Please get into a number. ", RED, BLACK);
+                TextInConsole.messageInLine("Please get into a number. ", Colors.RED.toString(), Colors.BLACK.toString());
                 return 0;
             }
         }
@@ -275,7 +263,7 @@ public class Game {
                 valueDouble = Double.parseDouble(value);
                 return Math.max(valueDouble, 0);
             } catch (Exception e) {
-                TextInConsole.messageInLine("Please get into a number. ", RED, BLACK);
+                TextInConsole.messageInLine("Please get into a number. ", Colors.RED.toString(), Colors.BLACK.toString());
                 return 0;
             }
         }
@@ -333,13 +321,13 @@ public class Game {
         Player.players.clear();
         CRUD.readData();
 
-        TextInConsole.messageInOtherLine("BEST SCORES", GREEN, BLACK);
+        TextInConsole.messageInOtherLine("BEST SCORES", Colors.GREEN.toString(), Colors.BLACK.toString());
 
         for (int i = 0; i < Math.min(Player.players.size(), 3); i++) {
             String name = Player.players.get(i).getName();
             String color = Player.players.get(i).getColor();
             int score = Player.players.get(i).getScore();
-            TextInConsole.messageInOtherLine("   " + name + ":" + score, color, BLACK);
+            TextInConsole.messageInOtherLine("   " + name + ":" + score, color, Colors.BLACK.toString());
         }
 
         TextInConsole.messageInLine("Click for continue", "", "");
@@ -352,13 +340,14 @@ public class Game {
             selectColor();
             flagColor = ErrorHandling.validateNumber(scanner.nextLine());
         } while (flagColor == 0);
-        return colors[flagColor];
+
+        return Colors.values()[flagColor].toString();
     }
 
     private void selectColor() {
         TextInConsole.messageInOtherLine("Select a color", "", "");
-        for (int i = 1; i < colors.length; i++) {
-            TextInConsole.messageInOtherLine(" " + (i) + ". " + colors[i], colors[i], "");
+        for (int i = 1; i < Colors.values().length; i++) {
+            TextInConsole.messageInOtherLine(" " + (i) + ". " + Colors.values()[i], Colors.values()[i].toString(), "");
         }
     }
 
@@ -366,7 +355,7 @@ public class Game {
         TextInConsole.messageInOtherLine("What is your nickname player " + i, "", "");
         String playerName = scanner.nextLine();
         String carColor = waitSelectColor();
-        new Player(playerName, carColor);
+        new Player(playerName.toUpperCase(), carColor);
     }
 
     private void selectNumberPlayers() {
