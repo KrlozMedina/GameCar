@@ -120,7 +120,14 @@ public class Game {
                 String password = System.getProperty("database.password");
                 conn = DriverManager.getConnection(URL, username, password);
             } catch (Exception e) {
-                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
+                switch (e.getMessage()) {
+                    case "com.mysql.cj.jdbc.Driver":
+                        TextInConsole.messageInLine("No es posible ocnectar a la base de datos, revisar las credenciales. ", Colors.RED.toString(), "");
+                        break;
+                    default:
+                        TextInConsole.messageInOtherLine(e.getMessage(), Colors.PURPLE.toString(), "");
+                        break;
+                }
             }
 
             return conn;
@@ -191,6 +198,12 @@ public class Game {
         public static void readData() {
             try {
                 Connection conn = getConnection();
+
+                if (conn == null) {
+                  TextInConsole.messageInOtherLine("La conexion es nula", Colors.RED.toString(), "");
+                    return;
+                }
+
                 PreparedStatement ps = conn.prepareStatement("SELECT * FROM Players, Cars \n" +
                                                                 "WHERE Players.idCar = Cars.idCar \n" +
                                                                 "ORDER BY score DESC");
@@ -206,9 +219,14 @@ public class Game {
                     } while (res.next());
                 }
 
+
+
                 conn.close();
             } catch (Exception e) {
-                TextInConsole.messageInOtherLine(e.toString(), Colors.RED.toString(), "");
+                switch (e.getMessage()) {
+                    default -> TextInConsole.messageInOtherLine(e.toString(), Colors.PURPLE.toString(), "");
+                }
+                TextInConsole.messageInOtherLine(e.getMessage(), Colors.YELLOW.toString(), "");
             }
 
             id = Player.players.size();
