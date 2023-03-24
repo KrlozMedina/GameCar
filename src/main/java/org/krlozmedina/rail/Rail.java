@@ -1,7 +1,6 @@
 package org.krlozmedina.rail;
 
-
-import org.krlozmedina.game.Game;
+import org.krlozmedina.Utils;
 
 public class Rail {
     private int meters;
@@ -21,7 +20,7 @@ public class Rail {
 
     public int moveCar(int howMany) {
         this.position += howMany * 100;
-        Game.TextInConsole.messageInOtherLine("The car move " + howMany * 100 + "m", "", "");
+        Utils.TextInConsole.messageWithJumpLine("The car move " + howMany * 100 + "m");
         return getPosition();
     }
 }
