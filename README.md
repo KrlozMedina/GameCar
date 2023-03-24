@@ -24,4 +24,4 @@ INSERT INTO Cars VALUES (7, "GRAY");
 INSERT INTO Cars VALUES (8, "WHITE");
 ```
 
-![WhatsApp-Video-2023-03-22-at-12 48 36](https://user-images.githubusercontent.com/78941509/226994345-0ad21ab9-ac8e-4dcd-bc5d-3f81e12428fa.gif)
+![video-gamecar2](https://user-images.githubusercontent.com/78941509/227647932-328ed475-69ba-4f99-8372-153f3915aa10.gif)
