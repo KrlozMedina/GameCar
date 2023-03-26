@@ -1,4 +1,4 @@
-# Juego de carros en consola con conexión a base de datos MySQL
+# Juego de carreras en consola con conexión a base de datos MySQL
 
 ![](https://img.shields.io/github/stars/KrlozMedina/GameCar)
 ![](https://img.shields.io/github/forks/KrlozMedina/GameCar)
@@ -18,7 +18,10 @@ datos.
 **Tabla de contenido**
 
 - [Requisitos](#requisitos)
-- [Configuracion de la base de datos](#configuración-de-la-base-de-datos)
+- [Configuración](#configuración)
+  * [Configuración de la conexión a la base de datos](#configuración-de-la-conexión-a-la-base-de-datos)
+  * [Configuracion de la base de datos](#configuración-de-la-base-de-datos)
+  * [Configuracion del proyecto](#configuracion-del-proyecto)
 - [Uso](#uso)
 - [Características del juego](#características-del-juego)
   * [Crear jugadores, carros y pistas](#crear-jugadores-carros-y-pistas)
@@ -32,31 +35,33 @@ datos.
 
 ## Requisitos
 
-Para utilizar este juego, necesitarás tener Java y MySQL instalados en tu
-computadora. Si aún no los tienes instalados, puedes descargar la última
-versión de Java desde el sitio web oficial de Java (https://www.java.com/es/download/)
-y un servidor con MySQL, recomiendo XAMPP por su facil instalacion y previa
-configuracion, puede descargar la ultima version en el sitio oficial (https://www.apachefriends.org/es/index.html).
+- [Java SE 8 o superior](https://www.java.com/en/download)
+- [Java Development Kit (JDK) 11 o superior](https://www.oracle.com/java/technologies/downloads)
+- [IDE IntelliJ](https://www.jetbrains.com/idea/download)
+- [XAMPP Apache + MariaDB (MySQL) + PHP + Perl](https://www.apachefriends.org/es/index.html) u otro servidor con MySQL
+- [MySQL Workbench](https://www.mysql.com/products/workbench/)
+- [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/)
 
-## Configuración de la base de datos
+## Configuración
 
-Antes de ejecutar el juego, necesitarás configurar la conexión a la base de
-datos. Abre el archivo `src/main/java/org/game/Game` y edita
-las siguientes líneas:
+### Configuración de la conexión a la base de datos
 
-```java
-// Server data -----------------------------------------
-public static final String URL_SERVER = "IP server";
-public static final String PORT_SERVER = "Port server";
-public static final String USERNAME_SERVER = "Username";
-public static final String PASSWORD_SERVER = "Password";
-//------------------------------------------------------
-```
+Para configurar la conexión a la base de datos MySQL, sigue estos pasos:
 
-Reemplaza `IP server`, `Port server`, `Username` y `Password` con la
-información correspondiente para tu servidor.
+1. Abre el archivo `XAMPP/etc/my.cnf` con un editor de texto y ubicar la
+linea con `[mysqld]` en la siguiente linea agregar `skip-grant-tables`.
+2. Abre XAMPP y asegúrate de que Apache y MySQL estén en ejecución.
+3. Identifica la IP y puerto del servidor.
 
-Las tablas de la base de datos se creará con las siguientes lineas de codigo:
+### Configuración de la base de datos
+
+1. Abre MySQL Workbrench.
+2. Agrega una nueva conexion.
+   - Hostname: IP del servidor (IP local del computador).
+   - Port: Puerto del servidor (3306 por default).
+   - Username: Usuario configurado en el servidor (root por default).
+   - Password: Contraseña configurada en el servidor (por default no tiene contraseña).
+3. Crea una query e ingresar las siguientes lineas de SQL
 
 ```sql
 CREATE DATABASE GameCar;
@@ -85,19 +90,34 @@ INSERT INTO Cars VALUES (8, "White");
 INSERT INTO Cars VALUES (9, "Black");
 ```
 
+### Configuracion del proyecto
+
+1. Abre IntelliJ IDEA.
+2. Clona el proyecto del [repositorio](https://github.com/KrlozMedina/GameCar.git).
+3. Abre el archivo `src/main/java/org.krlozmedina/game/Game` y edita las siguientes líneas:
+
+    ```java
+    // Server data -----------------------------------------
+    public static final String URL_SERVER = "IP server";
+    public static final String PORT_SERVER = "Port server";
+    public static final String USERNAME_SERVER = "Username";
+    public static final String PASSWORD_SERVER = "Password";
+    //------------------------------------------------------
+    ```
+
+    Reemplaza `IP server`, `Port server`, `Username` y `Password` con la
+    información correspondiente para tu servidor.
+
+4. Ejecutar el archivo `src/main/java/org.krlozmedina/Main` e iniciara el
+juego en la consola.
+
 ## Uso
 
-Para ejecutar el juego, abre una consola en el directorio raíz del proyecto
-y escribe:
+Al iniciar el juego, se mostrarán los tres mejores puntajes registrados. Luego se solicitará ingresar la distancia máxima de la pista y la cantidad de jugadores que participarán. Para cada jugador, se deberá ingresar un nickname y el color del carro que utilizará en la carrera.
 
-```bash
-javac src/main/java/org/krlozmedina/Main.java
-java -cp src/main/java com.krlozmedina.Main
-```
+Posteriormente, se mostrarán los parámetros ingresados y se preguntará si se desea modificar algún dato o iniciar el juego. Al iniciar el juego, se visualizará la pista con los carros de cada jugador y el nickname del jugador que debe tirar un dado entre 1 y 6 al oprimir la tecla "Enter". El resultado obtenido se multiplicará por 100 metros para realizar el movimiento en la pista y luego será el turno del siguiente jugador.
 
-El juego se iniciará en la consola y podrás jugarlo ingresando la distancia
-de la pista, la cantidad de jugadores y asigando un nikname y color por
-jugador.
+El juego finalizará cuando tres jugadores hayan pasado la meta y se mostrarán los tres ganadores en su orden de llegada.
 
 ## Características del juego
 
