@@ -36,7 +36,8 @@ datos.
 ## Requisitos
 
 - [Java SE 8 o superior](https://www.java.com/en/download)
-- [Java Development Kit (JDK) 11 o superior](https://www.oracle.com/java/technologies/downloads)
+- [Java Development Kit (JDK) 19](https://www.oracle.com/java/technologies/javase/jdk19-archive-downloads.html)
+- [Git](https://git-scm.com/downloads)
 - [IDE IntelliJ](https://www.jetbrains.com/idea/download)
 - [XAMPP Apache + MariaDB (MySQL) + PHP + Perl](https://www.apachefriends.org/es/index.html) u otro servidor con MySQL
 - [MySQL Workbench](https://www.mysql.com/products/workbench/)
@@ -48,7 +49,7 @@ datos.
 
 Para configurar la conexión a la base de datos MySQL, sigue estos pasos:
 
-1. Abre el archivo `XAMPP/etc/my.cnf` con un editor de texto y ubicar la
+1. Abre el archivo `XAMPP/etc/my.cnf` en MacOS o `C:\xampp\mysql\bin\my.ini` en Windows con un editor de texto y ubicar la
 linea con `[mysqld]` en la siguiente linea agregar `skip-grant-tables`.
 2. Abre XAMPP y asegúrate de que Apache y MySQL estén en ejecución.
 3. Identifica la IP y puerto del servidor.
@@ -61,6 +62,9 @@ linea con `[mysqld]` en la siguiente linea agregar `skip-grant-tables`.
    - Port: Puerto del servidor (3306 por default).
    - Username: Usuario configurado en el servidor (root por default).
    - Password: Contraseña configurada en el servidor (por default no tiene contraseña).
+   
+   ![image](https://user-images.githubusercontent.com/78941509/227777823-6e48be27-e063-4d2d-89f6-99d00acd6d22.png)
+   
 3. Crea una query e ingresar las siguientes lineas de SQL
 
 ```sql
@@ -68,16 +72,16 @@ CREATE DATABASE GameCar;
 USE GameCar;
 CREATE TABLE Cars(  idCar INTEGER PRIMARY KEY,
                     color VARCHAR(10));
-CREATE TABLE Rails( idRail INTEGER PRIMARY KEY,
-                    idPlayer INTEGER NOT NULL,
-                    position INTEGER,
-                    goal INTEGER,
-                    FOREIGN KEY (idPlayer) REFERENCES Players(idPlayer));
 CREATE TABLE Players(   idPlayer INTEGER NOT NULL PRIMARY KEY,
                         idCar INTEGER NOT NULL,
                         name VARCHAR(20),
                         score INTEGER,
                         FOREIGN KEY (idCar) REFERENCES Cars(idCar));
+CREATE TABLE Rails( idRail INTEGER PRIMARY KEY,
+                    idPlayer INTEGER NOT NULL,
+                    position INTEGER,
+                    goal INTEGER,
+                    FOREIGN KEY (idPlayer) REFERENCES Players(idPlayer));
 
 INSERT INTO Cars VALUES (1, "Red");
 INSERT INTO Cars VALUES (2, "Green");
@@ -107,17 +111,28 @@ INSERT INTO Cars VALUES (9, "Black");
 
     Reemplaza `IP server`, `Port server`, `Username` y `Password` con la
     información correspondiente para tu servidor.
+    
+4. Instalar MySQL Connector/J en las librerias del proyecto.
+    - En IntelliJ ir a `File/Project Structure/Libraries` y oprimir el signo + y seleccionar `Java`.
+    - Ubicar el archivo `mysql-connector-j-8.0.31.jar` (La version puede varia, verificar si es compatible ocn el JDK).
+    - Dar OK y seleccionar el proyecto al que desea adjuntar la libreria y nuevamente OK.
 
 4. Ejecutar el archivo `src/main/java/org.krlozmedina/Main` e iniciara el
 juego en la consola.
 
 ## Uso
 
-Al iniciar el juego, se mostrarán los tres mejores puntajes registrados. Luego se solicitará ingresar la distancia máxima de la pista y la cantidad de jugadores que participarán. Para cada jugador, se deberá ingresar un nickname y el color del carro que utilizará en la carrera.
+Al iniciar el juego, se mostrarán los tres mejores puntajes registrados (si es la primera ve mostrara `Database empty`). Luego se solicitará ingresar la distancia máxima de la pista y la cantidad de jugadores que participarán. Para cada jugador, se deberá ingresar un nickname y el color del carro que utilizará en la carrera.
 
-Posteriormente, se mostrarán los parámetros ingresados y se preguntará si se desea modificar algún dato o iniciar el juego. Al iniciar el juego, se visualizará la pista con los carros de cada jugador y el nickname del jugador que debe tirar un dado entre 1 y 6 al oprimir la tecla "Enter". El resultado obtenido se multiplicará por 100 metros para realizar el movimiento en la pista y luego será el turno del siguiente jugador.
+![image](https://user-images.githubusercontent.com/78941509/227781074-c2bd9b53-2ccd-4b10-8bdd-e59ef8cc010d.png)
+
+Posteriormente, se mostrarán los parámetros ingresados y se preguntará si se desea modificar algún dato o iniciar el juego. Al iniciar el juego, se visualizará la pista con los carros de cada jugador (Ajustar el tamaño de la consola para una mejor experiencia de la interfaz) y el nickname del jugador que debe tirar un dado entre 1 y 6 al oprimir la tecla "Enter". El resultado obtenido se multiplicará por 100 metros para realizar el movimiento en la pista y luego será el turno del siguiente jugador.
+
+![image](https://user-images.githubusercontent.com/78941509/227781097-76d8bf9e-9e39-4161-8b76-c62f13818a28.png)
 
 El juego finalizará cuando tres jugadores hayan pasado la meta y se mostrarán los tres ganadores en su orden de llegada.
+
+![image](https://user-images.githubusercontent.com/78941509/227781208-204b4911-6969-486e-9128-5561a271bdd5.png)
 
 ## Características del juego
 
