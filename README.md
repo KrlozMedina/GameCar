@@ -22,12 +22,12 @@ datos.
   * [Configuración de la conexión a la base de datos](#configuración-de-la-conexión-a-la-base-de-datos)
   * [Configuracion de la base de datos](#configuración-de-la-base-de-datos)
   * [Configuracion del proyecto](#configuracion-del-proyecto)
-- [Uso](#uso)
 - [Características del juego](#características-del-juego)
   * [Crear jugadores, carros y pistas](#crear-jugadores-carros-y-pistas)
   * [Iniciar el juego](#iniciar-el-juego)
   * [Seleccionar los primeros tres lugares](#seleccionar-los-primeros-tres-lugares)
   * [Persistir los resultados](#persistir-los-resultados)
+- [Uso](#uso)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 - [Sobre mi](#sobre-mi)
@@ -120,20 +120,6 @@ INSERT INTO Cars VALUES (9, "Black");
 4. Ejecutar el archivo `src/main/java/org.krlozmedina/Main` e iniciara el
 juego en la consola.
 
-## Uso
-
-Al iniciar el juego, se mostrarán los tres mejores puntajes registrados (si es la primera ve mostrara `Database empty`). Luego se solicitará ingresar la distancia máxima de la pista y la cantidad de jugadores que participarán. Para cada jugador, se deberá ingresar un nickname y el color del carro que utilizará en la carrera.
-
-![image](https://user-images.githubusercontent.com/78941509/227781074-c2bd9b53-2ccd-4b10-8bdd-e59ef8cc010d.png)
-
-Posteriormente, se mostrarán los parámetros ingresados y se preguntará si se desea modificar algún dato o iniciar el juego. Al iniciar el juego, se visualizará la pista con los carros de cada jugador (Ajustar el tamaño de la consola para una mejor experiencia de la interfaz) y el nickname del jugador que debe tirar un dado entre 1 y 6 al oprimir la tecla "Enter". El resultado obtenido se multiplicará por 100 metros para realizar el movimiento en la pista y luego será el turno del siguiente jugador.
-
-![image](https://user-images.githubusercontent.com/78941509/227781097-76d8bf9e-9e39-4161-8b76-c62f13818a28.png)
-
-El juego finalizará cuando tres jugadores hayan pasado la meta y se mostrarán los tres ganadores en su orden de llegada.
-
-![image](https://user-images.githubusercontent.com/78941509/227781208-204b4911-6969-486e-9128-5561a271bdd5.png)
-
 ## Características del juego
 
 ### Crear jugadores, carros y pistas
@@ -158,6 +144,20 @@ con los nombres de los conductores y se persiste en la base de datos.
 
 Los resultados se persisten en la base de datos con los nombres de los
 conductores y se agrega un contador de las veces que han ganado.
+
+## Uso
+
+Al iniciar el juego, se mostrarán los tres mejores puntajes registrados (si es la primera ve mostrara `Database empty`). Luego se solicitará ingresar la distancia máxima de la pista y la cantidad de jugadores que participarán. Para cada jugador, se deberá ingresar un nickname y el color del carro que utilizará en la carrera.
+
+![image](https://user-images.githubusercontent.com/78941509/227781074-c2bd9b53-2ccd-4b10-8bdd-e59ef8cc010d.png)
+
+Posteriormente, se mostrarán los parámetros ingresados y se preguntará si se desea modificar algún dato o iniciar el juego. Al iniciar el juego, se visualizará la pista con los carros de cada jugador (Ajustar el tamaño de la consola para una mejor experiencia de la interfaz) y el nickname del jugador que debe tirar un dado entre 1 y 6 al oprimir la tecla "Enter". El resultado obtenido se multiplicará por 100 metros para realizar el movimiento en la pista y luego será el turno del siguiente jugador.
+
+![image](https://user-images.githubusercontent.com/78941509/227781097-76d8bf9e-9e39-4161-8b76-c62f13818a28.png)
+
+El juego finalizará cuando tres jugadores hayan pasado la meta y se mostrarán los tres ganadores en su orden de llegada.
+
+![image](https://user-images.githubusercontent.com/78941509/227781208-204b4911-6969-486e-9128-5561a271bdd5.png)
 
 ## Contribuir
 
