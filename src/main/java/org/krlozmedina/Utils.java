@@ -1,12 +1,10 @@
 package org.krlozmedina;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import org.krlozmedina.game.Game;
 import org.krlozmedina.game.Player;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class Utils {
     static int id = 0;
@@ -126,8 +124,10 @@ public class Utils {
                 String username = System.getProperty("database.username");
                 String password = System.getProperty("database.password");
                 conn = DriverManager.getConnection(URL, username, password);
-            } catch (Exception e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 TextInConsole.exceptionError(e.getMessage());
+//            } catch (ClassNotFoundException e) {
+//                throw new RuntimeException(e);
             }
 
             return conn;
