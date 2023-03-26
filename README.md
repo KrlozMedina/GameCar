@@ -43,7 +43,7 @@ información correspondiente para tu servidor.
 
 Las tablas de la base de datos se creará con las siguientes lineas de codigo:
 
-```roomsql
+```sql
 CREATE DATABASE GameCar;
 USE GameCar;
 CREATE TABLE Cars(  idCar INTEGER PRIMARY KEY,
