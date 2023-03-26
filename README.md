@@ -75,7 +75,7 @@ INSERT INTO Cars VALUES (9, "Black");
 Para ejecutar el juego, abre una consola en el directorio raíz del proyecto
 y escribe:
 
-```css
+```bash
 javac src/main/java/org/krlozmedina/Main.java
 java -cp src/main/java com.krlozmedina.Main
 ```
