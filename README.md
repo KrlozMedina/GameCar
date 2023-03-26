@@ -15,6 +15,21 @@ datos.
 
 ![video-gamecar2](https://user-images.githubusercontent.com/78941509/227647932-328ed475-69ba-4f99-8372-153f3915aa10.gif)
 
+**Tabla de contenido**
+
+- [Requisitos](#requisitos)
+- [Configuracion de la base de datos](#configuración-de-la-base-de-datos)
+- [Uso](#uso)
+- [Características del juego](#características-del-juego)
+  * [Crear jugadores, carros y pistas](#crear-jugadores-carros-y-pistas)
+  * [Iniciar el juego](#iniciar-el-juego)
+  * [Seleccionar los primeros tres lugares](#seleccionar-los-primeros-tres-lugares)
+  * [Persistir los resultados](#persistir-los-resultados)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
+- [Sobre mi](#sobre-mi)
+
+
 ## Requisitos
 
 Para utilizar este juego, necesitarás tener Java y MySQL instalados en tu
